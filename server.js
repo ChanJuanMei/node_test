@@ -3,7 +3,7 @@ http.createServer(function(request, response){
   // 发送HTTP头部
   response.writeHead(200, {'Content-Type': 'text/plain'});
   //发送响应数据
-  response.end('Hello world\n');
+  response.end('Hello world\n ad');
 }).listen(8888);
 
 //终端打印一下信息
