@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  .news-list{list-style: none;height: 20px;overflow: hidden;}
+  .news-list li{line-height: 20px;font-size: 12px}
+  .news-list li a{color: #666;text-decoration: none}
+  .news-list li a:hover{text-decoration:underline;}
+  </style>
+</head>
+<body>
+    <div id="news">
+        <ul class="news-list">
+         <li><a href="http://yunkus.com/centos7-nginx-service-install-config/" class="text">1. Centos 7 nginx 服务安装及配置</a></li>
+         <li><a href="http://yunkus.com/centos7-ftp-apache-php-mariadb-uninstall/" class="text">2. Centos 7 Apache，php，MariaDB，FTP的卸载方法</a></li>
+         <li><a href="http://yunkus.com/centos-7-php-service-install-config/">3. Centos 7 php 环境安装及配置</a></li>
+         <li><a href="http://yunkus.com/meta-viewport-usage/" class="text">4. meta viewport 你真的了解吗？</a></li>
+        </ul>
+       </div>
+       <script>
+       function ScrollList(option){
+    this.el = option.el; 
+    this.data = option.data;
+    this.attr = option.attr || "title"; // 默认对象字段名
+    this.time = option.time || 1500; //切换时间间隔
+    this.showNum = option.showNum || 5;  // 显示条数
+    this.dataNum = option.data.length;
+    this.firstLi = null;
+    this.lis = null;
+    this.dataIndex = this.showNum;
+    this.itemHeight;
+    this.supportEvent;
+    if(this.dataNum <= this.showNum){
+        this.isEnough = false;
+        this.showNum = this.dataNum;
+    }else{
+        this.isEnough = true;
+    }
+}
+ScrollList.prototype.init = function(){
+    this.create();
+    this.setStyle();
+    this.getSupportEvent();
+    this.addEvent(this.firstLi);
+    this.runScroll();
+}
+ScrollList.prototype.getSupportEvent = function(){
+    var  transitions = {
+        'transition':'transitionend',
+        'OTransition':'oTransitionEnd',
+        'MozTransition':'transitionend',
+        'WebkitTransition':'webkitTransitionEnd'
+      }
+      var t;
+      for(t in transitions){
+          if( this.firstLi.style[t] !== undefined ){
+            this.supportEvent = transitions[t];
+          }
+      }
+}
+ScrollList.prototype.create = function(){
+    if(this.isEnough){
+        var eleN = this.showNum + 1;
+    }else{
+        eleN = this.showNum;
+    }
+    var fragment = document.createDocumentFragment();
+    for(var i=0;i<eleN;i++){
+       var oLi = document.createElement("li");
+       fragment.appendChild(oLi);
+    }
+    this.el.appendChild(fragment);
+   
+    // 获取所创建的元素，并添加内容
+    this.lis = this.el.getElementsByTagName("li");
+    for(var k=0;k<eleN;k++){
+        this.lis[k].innerText = this.data[k].title;
+    }
+}
+ScrollList.prototype.setStyle = function(){
+    var el = this.el;
+    this.firstLi = el.firstElementChild;
+    this.itemHeight = this.firstLi.offsetHeight;
+    el.style.height = this.showNum * this.itemHeight + "px";
+}
+ScrollList.prototype.runScroll = function(){
+    var _this = this;
+    var el = _this.el;
+    if(!this.isEnough){ // 如果条数小于要显示的数量则不自动滚动
+        return;
+    }
+    setInterval(function(){
+        var currentFirstLi = el.firstElementChild;
+        _this.addEvent(el.firstElementChild);
+        currentFirstLi.style.height = 0;
+        currentFirstLi.style.transform = "scale(0)";
+    },this.time);
+}
+ScrollList.prototype.addEvent = function(firstLi){
+        var _this = this;
+        this.supportEvent && firstLi.addEventListener(this.supportEvent,eventHandler);
+        function eventHandler(){
+            _this.el.appendChild(this);
+            if(_this.dataIndex >= _this.dataNum){
+                _this.dataIndex = 0;
+            }
+            this.innerText = _this.data[_this.dataIndex++][_this.attr];
+            this.removeEventListener(_this.supportEvent,eventHandler,false);//销毁事件
+            this.style = "";
+            // this.removeAttribute("style");
+        }
+}
+// 使用方法
+var oUl = document.getElementById("new-list");
+var scrollNews = new ScrollList({
+    el:oUl,
+    data:[{title: 11}, {title:2}],
+    showNum:9
+})
+scrollNews.init();
+
+       </script>
+</body>
+</html>
