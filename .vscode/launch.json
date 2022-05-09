@@ -7,8 +7,14 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "启动程序",
-      "program": "${workspaceFolder}/server_restful.js"
-    }
+      "name": "serverjs",
+      "program": "${workspaceFolder}/server.js"
+    },
+    {
+      "name": "Launch index.html",
+      "type": "chrome",
+      "request": "launch",
+      "file": "${workspaceFolder}/example/index.html"
+  },
   ]
 }

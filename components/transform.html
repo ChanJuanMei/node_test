@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script></script>
+  <style>
+    .wrapper {
+      width: 50px;
+      height: 50px;
+      margin-left: 100px;
+      background: blue;
+
+      /* transform: skew(-30deg, 10deg); */
+      /* transform-origin: left top; */
+      /* transform-origin: 100px 100px; */
+      animation-name: myMove;/*动画属性名，也就是我们前面keyframes定义的动画名*/
+      animation-duration: 10s;/*动画持续时间*/
+      animation-timing-function: ease-in-out; /*动画频率，和transition-timing-function是一样的*/
+      animation-delay: 2s;/*动画延迟时间*/
+      animation-iteration-count: 10;/*定义循环，infinite为无限次*/
+      animation-direction: alternate;
+      /* opacity: 1; */
+    }
+    .wrapper:hover{
+      /* transform: rotate(45deg);
+      transform: rotate(45deg);
+      transition: all .5s ease-in-out 1s; */
+      /* background: aquamarine;
+      opacity: 1;
+      transition: all 5s linear 0.5s; */
+      /* opacity: 1; */
+    }
+    p {
+      animation-duration: 3s;
+      animation-name: slidein;
+      animation-iteration-count: infinite;
+      animation-direction: alternate
+    }
+
+    @keyframes slidein {
+      from {
+        margin-left: 100%;
+        width: 300%; 
+      }
+
+      to {
+        margin-left: 0%;
+        width: 100%;
+      }
+    }
+    @keyframes myMove {
+      0% {
+        margin-left: 100px;
+        background: green;
+     }
+     40% {
+        margin-left: 150px;
+        background: orange;
+     }
+     60% {
+        margin-left: 75px;
+        background: blue;
+     }
+     100% {
+        margin-left: 100px;
+        background: red;
+     }
+    }
+    /* .wrapper div {
+      width: 200px;
+      height: 200px;
+      background: orange;
+      transform: rotate(45deg);
+      transform: rotate(45deg);
+    } */
+    .element-wrap {
+      margin: 100px auto;
+      background: orange;
+      height: 100px;
+      width: 100px;
+      transform-origin: left top;
+      animation: zoomIn 1s infinite alternate;
+
+    } 
+    .element{
+      animation: spin 1s infinite alternate;
+
+    }
+    @keyframes spin{
+      0%{
+        transform: rotate(0deg)
+      }
+      100%{
+        transform: rotate(360deg)
+      }
+    }
+    @keyframes zoomIn{
+      0%{
+        transform: scale(1)
+      }
+      100%{
+        transform: scale(2)
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- <div class="wrapper">
+  </div>
+  <p>The Caterpillar and Alice looked at each other for some time in silence:
+    at last the Caterpillar took the hookah out of its mouth, and addressed
+    her in a languid, sleepy voice.</p> -->
+  <div class="element-wrap">
+    <div class="element">小火箭</div>
+  </div>
+</body>
+</html>
